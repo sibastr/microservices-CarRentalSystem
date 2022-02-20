@@ -7,6 +7,6 @@
 4. Для сборки используется Github Actions.
 5. Для автоматических прогонов тестов в файле [autograding.json](.github/classroom/autograding.json)
    и [classroom.yml](.github/workflows/classroom.yml).
-6. Каждый сервисзавернут в docker.
+6. Каждый сервис завернут в docker.
 7. В [classroom.yml](.github/workflows/classroom.yml) прописаны шаги на сборку, прогон unit-тестов и деплой каждого
    сервиса на heroku.
