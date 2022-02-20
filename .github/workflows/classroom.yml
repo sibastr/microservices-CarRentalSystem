@@ -1,0 +1,79 @@
+name: GitHub Classroom Workflow
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    name: Autograding
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # TODO build, test and deploy project
+      - name: Car Rental System
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: a008833b-5919-4c0c-b9e1-739ef11e2b3f
+          heroku_app_name: carsrsoi2
+          heroku_email: sibastr98@mail.ru
+          appdir: source/cars/
+          usedocker: true
+
+
+
+
+
+      - name: Car Rental System
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: a008833b-5919-4c0c-b9e1-739ef11e2b3f
+          heroku_app_name: gatewayrsoi2
+          heroku_email: sibastr98@mail.ru
+          appdir: source/gateway/
+          usedocker: true
+        
+      - name: Car Rental System
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: a008833b-5919-4c0c-b9e1-739ef11e2b3f
+          heroku_app_name: paymentrsoi2
+          heroku_email: sibastr98@mail.ru
+          appdir: source/payment/
+          usedocker: true
+
+      - name: Car Rental System
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: a008833b-5919-4c0c-b9e1-739ef11e2b3f
+          heroku_app_name: rentalrsoi2
+          heroku_email: sibastr98@mail.ru
+          appdir: source/rental/
+          usedocker: true
+        
+
+      - name: sleep
+        run: |-
+              sleep 60
+        
+
+
+
+      - name: Run API Tests
+        id: run-newman
+        uses: anthonyvscode/newman-action@v1
+        with:
+          # TODO insert your variant
+          collection: v3/postman/[rsoi] postman_collection.json
+          environment: v3/postman/[rsoi][heroku] postman_environment.json
+          delayRequest: 50
+          reporters: cli
+
+      - uses: education/autograding@v1
+        id: autograder
+        continue-on-error: true
